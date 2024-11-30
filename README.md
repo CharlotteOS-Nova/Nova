@@ -1,15 +1,17 @@
-# Lavender
-## An Experimental Modern Operating System Project
+## CharlotteOS, An Experimental Modern Operating System
+
+# The Nova Kernel
 
 ### Implementation Languages
 - Rust
+- C
 - Assembly Language
 
 ### Targets
 - x86_64
 - Aarch64
 
-*Only devices with full UEFI and ACPI compliant firmware are to be supported as of now
+*As of now support is only planned for devices with full UEFI and ACPI compliant firmware. If your desired device does not provide such firmware please contact your hardware vendor.
 
 ### Contributing
 
