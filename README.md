@@ -1,6 +1,11 @@
-## CharlotteOS, An Experimental Modern Operating System
+## CharlotteOS 
+### An Experimental Modern Operating System
 
-# The Nova Kernel
+# Nova
+
+Nova is the new kernel being developed as a component of CharlotteOS, an experimental modern operating system project that is free as in freedom.
+
+To learn more about CharlotteOS please see [the GitHub organization and its readme](https://github.com/CharlotteOS-Nova).
 
 ### Implementation Languages
 - Rust
