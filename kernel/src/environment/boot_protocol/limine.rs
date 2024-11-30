@@ -1,10 +1,10 @@
 use limine::request::{
-        FramebufferRequest,
-        HhdmRequest,
-        KernelAddressRequest,
-        MemoryMapRequest,
-        RsdpRequest,
-        SmpRequest,
+    FramebufferRequest,
+    HhdmRequest,
+    KernelAddressRequest,
+    MemoryMapRequest,
+    RsdpRequest,
+    SmpRequest,
 };
 use limine::BaseRevision;
 

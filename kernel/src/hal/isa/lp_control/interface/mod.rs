@@ -1,3 +1,3 @@
 pub trait LpCtlIfce {
-        fn halt() -> !;
+    fn halt() -> !;
 }

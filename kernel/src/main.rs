@@ -1,9 +1,10 @@
 #![no_std]
 #![no_main]
+#![feature(sync_unsafe_cell)]
 
-//! # The Lavender Kernel
+//! # Nova
 //!
-//! This operating system kernel is a component of Lavender, an experimental
+//! The Nova kernel is a component of CharlotteOS, an experimental
 //! modern operating system. The kernel is responsible for initializing the
 //! hardware, providing commonizing abstractions for all hardware resources, and
 //! managing the execution of user-space applications and the environment in
@@ -19,6 +20,14 @@ mod memory;
 
 use core::panic::PanicInfo;
 
+use embedded_graphics::{
+    mono_font::{ascii::FONT_9X18, MonoTextStyle},
+    pixelcolor::Rgb888,
+    prelude::*,
+    text::Text,
+};
+
+use hal::drivers::sw_graphics::framebuffer::FRAMEBUFFER;
 use hal::isa::lp_control::interface::LpCtlIfce;
 use hal::isa::lp_control::LpCtl;
 
@@ -28,13 +37,21 @@ use hal::isa::lp_control::LpCtl;
 /// bootloader.
 #[no_mangle]
 unsafe extern "C" fn main() -> ! {
-        logln!("Entering the Lavender Kernel...");
-        init::kernel_init();
-        LpCtl::halt()
+    logln!("Entering Nova.\nInitializing system...\n");
+    let style = MonoTextStyle::new(&FONT_9X18, Rgb888::WHITE);
+    Text::new("Entering Nova.\nInitializing system...\n", Point::new(0, 9), style)
+        .draw(&mut *FRAMEBUFFER.lock())
+        .unwrap();
+    init::kernel_init();
+    logln!("System initialized.\nHalting.\n");
+    Text::new("System initialized.\nHalting.\n", Point::new(0, 8 + 36), style)
+        .draw(&mut *FRAMEBUFFER.lock())
+        .unwrap();
+    LpCtl::halt()
 }
 
 #[panic_handler]
 fn panic(_info: &PanicInfo) -> ! {
-        logln!("{}", _info);
-        loop {}
+    logln!("{}", _info);
+    loop {}
 }

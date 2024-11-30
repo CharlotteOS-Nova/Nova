@@ -11,6 +11,6 @@ use core::fmt::Write;
 use crate::hal::isa::io::IoReg8;
 
 pub trait Uart: Write + Sized {
-        type Error: Sized;
-        fn try_new(base: IoReg8) -> Result<Self, Self::Error>;
+    type Error: Sized;
+    fn try_new(base: IoReg8) -> Result<Self, Self::Error>;
 }
