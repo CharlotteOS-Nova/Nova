@@ -12,22 +12,22 @@
 //! the foundation on which the rest of the system is built and it touches every
 //! hardware and software component of the system on which it is used.
 
+mod console;
 mod environment;
 mod hal;
 mod init;
 mod log;
 mod memory;
+mod utils;
 
 use core::panic::PanicInfo;
 
-use embedded_graphics::{
-    mono_font::{ascii::FONT_9X18, MonoTextStyle},
-    pixelcolor::Rgb888,
-    prelude::*,
-    text::Text,
-};
-
-use hal::drivers::sw_graphics::framebuffer::FRAMEBUFFER;
+use embedded_graphics::mono_font::ascii::FONT_9X18;
+use embedded_graphics::mono_font::MonoTextStyle;
+use embedded_graphics::pixelcolor::Rgb888;
+use embedded_graphics::prelude::*;
+use embedded_graphics::text::Text;
+use hal::drivers::display::limine_fb::FRAMEBUFFER;
 use hal::isa::lp_control::interface::LpCtlIfce;
 use hal::isa::lp_control::LpCtl;
 

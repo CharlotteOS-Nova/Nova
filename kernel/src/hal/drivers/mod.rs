@@ -1,2 +1,2 @@
-pub mod sw_graphics;
+pub mod display;
 pub mod uart;

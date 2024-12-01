@@ -1,11 +1,11 @@
-use core::cell::SyncUnsafeCell;
-
 use embedded_graphics::draw_target::DrawTarget;
 use embedded_graphics::prelude::{Dimensions, IntoStorage};
 use embedded_graphics::Pixel;
 use lazy_static::lazy_static;
 use limine::framebuffer::Framebuffer as LimineFramebuffer;
 use spin::Mutex;
+
+use crate::logln;
 
 lazy_static! {
     pub static ref FRAMEBUFFER: Mutex<Framebuffer> = Mutex::new(Framebuffer::from(
@@ -37,7 +37,7 @@ impl From<&LimineFramebuffer<'_>> for Framebuffer {
 impl Dimensions for Framebuffer {
     fn bounding_box(&self) -> embedded_graphics::primitives::Rectangle {
         embedded_graphics::primitives::Rectangle::new(
-            embedded_graphics::geometry::Point::new(0, 9),
+            embedded_graphics::geometry::Point::new(0, 0),
             embedded_graphics::geometry::Size::new(self.width as u32, self.height as u32),
         )
     }
@@ -59,7 +59,16 @@ impl DrawTarget for Framebuffer {
             if x < self.width as usize && y < self.height as usize {
                 let offset = (y as u64 * self.width as u64 + x as u64) * 4u64;
                 unsafe {
-                    core::ptr::write(fb.offset(offset as isize) as *mut u32, color.into_storage());
+                    #[cfg(debug_assertions)]
+                    logln!(
+                        "Drawing pixel at ({:?}, {:?}) address {:?} with color {:?}",
+                        x,
+                        y,
+                        (fb.offset(offset as isize)),
+                        color
+                    );
+
+                    core::ptr::write_volatile(fb.offset(offset as isize) as *mut u32, color.into_storage());
                 }
             }
         }

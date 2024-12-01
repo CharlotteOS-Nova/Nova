@@ -14,13 +14,21 @@ lazy_static! {
 }
 
 // standard PC COM port base addresses
+#[allow(unused)]
 static COM1: u16 = 0x3f8;
+#[allow(unused)]
 static COM2: u16 = 0x2f8;
+#[allow(unused)]
 static COM3: u16 = 0x3e8;
+#[allow(unused)]
 static COM4: u16 = 0x2e8;
+#[allow(unused)]
 static COM5: u16 = 0x5f8;
+#[allow(unused)]
 static COM6: u16 = 0x4f8;
+#[allow(unused)]
 static COM7: u16 = 0x5e8;
+#[allow(unused)]
 static COM8: u16 = 0x4e8;
 
 #[derive(Copy, Clone, Debug)]
@@ -37,10 +45,15 @@ impl Uart16550 {
     fn is_transmit_empty(&self) -> i32 {
         ((self.base + 5).read() & 0x20).into()
     }
-
+/*
     fn received(&self) -> bool {
         ((self.base + 5).read() & 1) != 0
     }
+    fn read_char(&self) -> char {
+        while !self.received() {}
+        (self.base).read() as char
+    }
+*/
 }
 
 impl Write for Uart16550 {
