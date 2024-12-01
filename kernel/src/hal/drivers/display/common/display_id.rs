@@ -18,8 +18,8 @@ impl From<&[u8]> for EdidInfo {
     fn compute_width_height(width_byte: u8, height_byte: u8) -> Option<(u64, u64)> {
         match (width_byte, height_byte) {
             (0, 0) => None,
-            (0, _) => (0, u64::from(height_byte)),
-            (_, 0) => (u64::from(width_byte), 0),
+            (0, _) =>  todo!(),
+            (_, 0) => todo!(),
             (w, h) => (u64::from(w), u64::from(h)),
         }
     }
